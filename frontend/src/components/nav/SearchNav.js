@@ -1,0 +1,45 @@
+import React from 'react';
+import {Link} from 'react-router-dom';
+
+const SearchNav = (prop) => {
+    return (<nav className={""}>
+        <ul className = {"nav flex-column"}>
+            <li className={"nav-item m-2 border"}>
+                <Link to={"/user/suscriber"} className={"nav-link"}>
+                    History
+                </Link>
+                </li>
+
+                <li className={"nav-item m-2 border"}>
+                <Link to={"/buy/orders"} className={"nav-link"}>
+                    Buy orders
+                </Link>
+                </li>
+
+                <li className={"nav-item m-2 border"}>
+                <Link to={"/sell/orders"} className={"nav-link"}>
+                    Sell Orders
+                </Link>
+                </li>
+
+                <li className={"nav-item m-2 border"}>
+                <Link to={"/update/password"}  className={"nav-link"}>
+                    Update Password
+                </Link>
+                </li>
+
+                <li className={"nav-item m-2 border"}>
+                <Link to= {"/wish/list"} className={"nav-link"}>
+                    WishList
+                </Link>
+                </li>
+        </ul>
+
+    </nav>)
+
+
+}
+
+export default SearchNav;
+
+
