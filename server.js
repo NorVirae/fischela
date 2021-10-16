@@ -9,7 +9,10 @@ require('dotenv').config()
 
 
 const app = express()
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect(
+    process.env.DATABASE2
+    // "mongodb+srv://virae:C@list5r@fischela.xme4w.mongodb.net/fischela?retryWrites=true&w=majority"
+    , {
     useNewUrlParser:true,
     useCreateIndex:true,
     useFindAndModify:true,
