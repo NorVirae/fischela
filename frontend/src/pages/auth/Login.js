@@ -58,7 +58,7 @@ const Login = (props)=>{
     }, [user, props.history])
 
 
-    const [email, setEmail] = useState('norbertmbafrank@gmail.com')
+    const [email, setEmail] = useState('norbertmbafrank@gmail.com') 
     const [password, setPassword] = useState('calister')
     const [loading, setLoading] = useState(false)
 
