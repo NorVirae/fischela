@@ -5,43 +5,43 @@ const AdminNav = (prop) => {
     return (<nav className={""}>
         <ul className = {"nav flex-column"}>
             <li className={"nav-item"}>
-                <Link to={"/create/category"} className={"nav-link"}>
+                <Link to={"/d/create/category"} className={"nav-link"}>
                     Category
                 </Link>
                 </li>
 
                 <li className={"nav-item"}>
-                <Link to={"/update/password"}  className={"nav-link"}>
+                <Link to={"/d/update/password"}  className={"nav-link"}>
                     Password
                 </Link>
                 </li>
 
                 <li className={"nav-item"}>
-                <Link to= {"/wish/list"} className={"nav-link"}>
+                <Link to= {"/d/wish/list"} className={"nav-link"}>
                     Users
                 </Link>
                 </li>
 
                 <li className={"nav-item"}>
-                <Link to= {"/create/sub"} className={"nav-link"}>
+                <Link to= {"/d/create/sub"} className={"nav-link"}>
                     Sub-Category
                 </Link>
                 </li>
 
                 <li className={"nav-item"}>
-                <Link to= {"/create/product"} className={"nav-link"}>
+                <Link to= {"/d/create/product"} className={"nav-link"}>
                     Products
                 </Link>
                 </li>
 
                 <li className={"nav-item"}>
-                <Link to= {"/list/orders"} className={"nav-link"}>
+                <Link to= {"/d/list/orders"} className={"nav-link"}>
                     Orders
                 </Link>
                 </li>
 
                 <li className={"nav-item"}>
-                <Link to= {"/wish/list"} className={"nav-link"}>
+                <Link to= {"/d/wish/list"} className={"nav-link"}>
                     Shipping
                 </Link>
                 </li>

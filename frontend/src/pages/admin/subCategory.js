@@ -121,7 +121,7 @@ const CreateSubCategory =  (props) => {
 
                 {listOfSubs?listOfSubs.filter(searched(keyword)).map((cate)=>{
                 return  <div key={cate._id} className={'alert alert-secondary'}>{cate.name}
-                    <Link to = {"/edit/sub/"+cate.slug} className="btn btn-sm btn-primary float-right">
+                    <Link to = {"/d/edit/sub/"+cate.slug} className="btn btn-sm btn-primary float-right">
                         {<EditOutlined/>}
                     </Link>
 

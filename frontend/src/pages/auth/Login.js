@@ -32,13 +32,13 @@ const Login = (props)=>{
 
         if( typeof props.location.state != 'indefined'){
             if(props.location.state.role == 'cart')
-            props.history.push("/add/to/cart")
+            props.history.push("/d/add/to/cart")
 
         }else if(res.data.role == "subscriber"){
-            props.history.push("/user/suscriber")
+            props.history.push("/d/user/suscriber")
 
         }else if (res.data.role == "admin"){
-            props.history.push("/admin/dashboard")
+            props.history.push("/d/admin/dashboard")
 
         }else{
         console.log("ELSE EXECUTED")
@@ -51,7 +51,7 @@ const Login = (props)=>{
     }
     useEffect(()=>{
         if (user && user.token){
-            props.history.push("/user/suscriber")
+            props.history.push("/d/user/suscriber")
         }
 
         return ()=>{}
@@ -157,7 +157,9 @@ const Login = (props)=>{
              icon = {<GoogleOutlined/>}
              classNloaame = {"mb-3"}
              >Google sign In</Button>
-             <Link to="/forgotten/password" className="float-right text-danger">Forgotten password?</Link>
+             <Link to="/d/forgotten/password" className="float-right text-danger">Forgotten password?</Link><hr/>
+             <Link to="/d/register" className="float-right text-info">Don't have an account? click to Register</Link>
+
              </div>
         </form>
     return (

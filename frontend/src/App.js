@@ -110,36 +110,36 @@ const App = (props)=>{
 
         <Switch>
         <RouteWithHF path={"/"} component={Home} exact={true}/>
-        <Route path={"/login"} component={Login} exact={true}/>
-        <Route path={"/register"} component={Register} exact={true}/>
-        <Route path={"/register/complete"} component={RegisterComplete} exact={true} />
-        <Route path={"/forgotten/password"} component={ForgottenPassword} exact={true} />
-        <RouteWithHF path={"/product/info/:slug"} component={ProductInfo} exact={true} />
-        <RouteWithHF path={"/add/to/cart"} component={Cart} exact={true} />
-        <RouteWithHF path={"/checkout"} component={CheckOut} exact={true} />
-        <RouteWithHF path={"/search"} component={SearchPage} exact={true} />
+        <Route path={"/d/login"} component={Login} exact={true}/>
+        <Route path={"/d/register"} component={Register} exact={true}/>
+        <Route path={"/d/register/complete"} component={RegisterComplete} exact={true} />
+        <Route path={"/d/forgotten/password"} component={ForgottenPassword} exact={true} />
+        <RouteWithHF path={"/d/product/info/:slug"} component={ProductInfo} exact={true} />
+        <RouteWithHF path={"/d/add/to/cart"} component={Cart} exact={true} />
+        <RouteWithHF path={"/d/checkout"} component={CheckOut} exact={true} />
+        <RouteWithHF path={"/d/search"} component={SearchPage} exact={true} />
 
 
 
 
         {/* <UserRoute path={"/user/suscriber"} component={Suscriber} exact={true} /> */}
-        <UserRouteWithHF path={"/wish/list"} component={WishList} exact={true} />
-        <UserRouteWithHF path={"/update/password"} component={UpdatePassword} exact={true} />
-        <UserRouteWithHF path={"/user/suscriber"} component={Suscriber} exact={true} />
-        <UserRouteWithHF path={"/user/suscriber"} component={Suscriber} exact={true} />
-        <UserRouteWithHF path={"/buy/orders"} component={BuyOrders} exact={true} />
-        <UserRouteWithHF path={"/sell/orders"} component={SellOrders} exact={true} />
+        <UserRouteWithHF path={"/d/wish/list"} component={WishList} exact={true} />
+        <UserRouteWithHF path={"/d/update/password"} component={UpdatePassword} exact={true} />
+        <UserRouteWithHF path={"/d/user/suscriber"} component={Suscriber} exact={true} />
+        <UserRouteWithHF path={"/d/user/suscriber"} component={Suscriber} exact={true} />
+        <UserRouteWithHF path={"/d/buy/orders"} component={BuyOrders} exact={true} />
+        <UserRouteWithHF path={"/d/sell/orders"} component={SellOrders} exact={true} />
 
 
 
-        <AdminRoute path={"/admin/dashboard"} component={AdminDashboard} exact={true} />
-        <AdminRoute path={"/create/category"} component={CreateCategory} exact={true} />
-        <AdminRoute path={"/edit/category/:slug"} component={EditCategory} exact={true} />
-        <AdminRoute path={"/create/sub"} component={CreateSubCategory} exact={true} />
-        <AdminRoute path={"/edit/sub/:slug"} component={EditSub} exact={true} />
-        <AdminRoute path={"/create/product"} component={Product} exact={true} />
-        <AdminRoute path={"/edit/product/:slug"} component={EditProduct} exact={true} />
-        <AdminRoute path={"/list/orders"} component={Orders} exact={true} />
+        <AdminRoute path={"/d/admin/dashboard"} component={AdminDashboard} exact={true} />
+        <AdminRoute path={"/d/create/category"} component={CreateCategory} exact={true} />
+        <AdminRoute path={"/d/edit/category/:slug"} component={EditCategory} exact={true} />
+        <AdminRoute path={"/d/create/sub"} component={CreateSubCategory} exact={true} />
+        <AdminRoute path={"/d/edit/sub/:slug"} component={EditSub} exact={true} />
+        <AdminRoute path={"/d/create/product"} component={Product} exact={true} />
+        <AdminRoute path={"/d/edit/product/:slug"} component={EditProduct} exact={true} />
+        <AdminRoute path={"/d/list/orders"} component={Orders} exact={true} />
 
 
 

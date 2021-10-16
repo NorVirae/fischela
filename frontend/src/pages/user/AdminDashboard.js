@@ -67,7 +67,7 @@ const AdminDashboard = (props) => {
             } 
                 actions={[
                     <DeleteOutlined onClick={e=>handleDelete(prod.slug)} key="setting" />,
-                    <EditOutlined onClick={e=>props.history.push('/edit/product/'+prod.slug)} key="edit" />,
+                    <EditOutlined onClick={e=>props.history.push('/d/edit/product/'+prod.slug)} key="edit" />,
                   ]}
                    >
                        

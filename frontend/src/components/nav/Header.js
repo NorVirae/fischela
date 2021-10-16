@@ -36,7 +36,7 @@ const logout = ()=>{
       type:"LOGGED_OUT_USER",
       payload: null
     })
-    history.push("/login")
+    history.push("/d/login")
 
 }
 
@@ -52,17 +52,17 @@ const logout = ()=>{
        
 
         {!user && (<Menu.Item key={"register"} icon={<UserOutlined /> } className={"float-right"}>
-        <Link to={"/register"}>Register</Link>
+        <Link to={"/d/register"}>Register</Link>
         </Menu.Item>)}
 
         {!user && (<><Menu.Item key={"login"} icon={<LoginOutlined /> } className={"float-right"}>
-        <Link to={"/login"}>Login</Link>
+        <Link to={"/d/login"}>Login</Link>
         </Menu.Item>
 
                 </>
     )}
 
-        <Menu.Item key={"cart"} icon={<span onClick={e=>history.push("/add/to/cart")} className="avatar-item">
+        <Menu.Item key={"cart"} icon={<span onClick={e=>history.push("/d/add/to/cart")} className="avatar-item">
                                             <Badge count={ct}>
                                             <Avatar class="text-warning" shape="square" icon={<ShoppingCartOutlined />} />
                                             </Badge>
@@ -74,8 +74,8 @@ const logout = ()=>{
        
         {user&&(<SubMenu key={"SubMenu"} className={"float-right"} icon={<SettingOutlined />} title={user && (user.email.split("@")[0])}>
           
-            <Menu.Item key={"setting:2"}><Link to={"/admin/dashboard"}>Admin Dashboard</Link></Menu.Item>
-            <Menu.Item key={"setting:2"}><Link to={"/user/suscriber"}>User Dashboard</Link></Menu.Item>
+            <Menu.Item key={"setting:2"}><Link to={"/d/admin/dashboard"}>Admin Dashboard</Link></Menu.Item>
+            <Menu.Item key={"setting:2"}><Link to={"/d/user/suscriber"}>User Dashboard</Link></Menu.Item>
             
             <Menu.Item icon={<LogoutOutlined />} onClick={logout}>LogOut</Menu.Item>
             <Menu.Item key={"cart"} icon={<span className="avatar-item">
@@ -103,7 +103,7 @@ const logout = ()=>{
         </Menu.Item> */}
 
         <Menu.Item key={"location"} icon={<SearchOutlined /> } className={"float-right"}>
-          <input onChange={e=>history.push('/search')} placeholder={'Search...'} className={'form-control d-inline'}/>
+          <input onChange={e=>history.push('/d/search')} placeholder={'Search...'} className={'form-control d-inline'}/>
         
         </Menu.Item>
 

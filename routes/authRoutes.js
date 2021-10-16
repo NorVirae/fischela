@@ -1,4 +1,4 @@
-const {createOrUpdateUser, currentUser, adminUser} = require('../controller/auth')
+const {createOrUpdateUser, currentUser, adminUser, createadmin} = require('../controller/auth')
 const {Create, Read, Delete , list, Update} = require('../controller/categories')
 const {CreateSub, ReadSub, DeleteSub , listSub, UpdateSub, listSubSpec} = require('../controller/sub')
 const {CreateProduct, ReadProduct, DeleteProduct, listProduct, UpdateProduct} = require('../controller/product')
@@ -14,6 +14,8 @@ const router = express.Router()
 
 
 router.post("/createupdateuser", authCheck, createOrUpdateUser)//Login and signup
+router.get("/createadmin", createadmin)//Login and signup
+
 router.post("/currentuser", authCheck, currentUser)//fetch data for user
 router.post("/adminuser", authCheck, adminCheck, adminUser)//fetch data for admin
 // Categories

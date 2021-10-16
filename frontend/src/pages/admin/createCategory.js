@@ -95,7 +95,7 @@ const CreateCategory =  (props) => {
 
                 {listOfCategories?listOfCategories.filter(searched(keyword)).map((cate)=>{
                 return  <div key={cate._id} className={'alert alert-secondary'}>{cate.name}
-                    <Link to = {"/edit/category/"+cate.slug} className="btn btn-sm btn-primary float-right">
+                    <Link to = {"/d/edit/category/"+cate.slug} className="btn btn-sm btn-primary float-right">
                         {<EditOutlined/>}
                     </Link>
 

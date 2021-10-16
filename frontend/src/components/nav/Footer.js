@@ -36,7 +36,7 @@ const logout = ()=>{
       type:"LOGGED_OUT_USER",
       payload: null
     })
-    history.push("/login")
+    history.push("/d/login")
 
 }
 

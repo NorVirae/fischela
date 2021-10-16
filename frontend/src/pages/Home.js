@@ -103,9 +103,9 @@ const Home = (props)=>{
                   <EnvironmentOutlined />
                   <select autoFocus onChange={e=>props.history.push(e.target.value)} className={'form-control d-inline p-1 col-lg-4'}>
                     <option>Location</option>
-                    <option value={"/location/madonna-elele"} >Madonna University Elele</option>
-                    <option value={"/location/enugu-independence"} >Enugu - Independence Layout</option>
-                    <option value={"/location/izuchukwu-street"} >Izuchukwu street</option>
+                    <option value={"/d/location/madonna-elele"} >Madonna University Elele</option>
+                    <option value={"/d/location/enugu-independence"} >Enugu - Independence Layout</option>
+                    <option value={"/d/location/izuchukwu-street"} >Izuchukwu street</option>
 
                     </select><label className={'alert alert-info'}> Select Your location to see products closer to you in order to get goods faster</label></fieldset>
           </div>
@@ -117,7 +117,7 @@ const Home = (props)=>{
               {products ? products.map(prod => (<Card
                 className={'border blue-shadow m-1 p-1'}
                  hoverable
-                onClick={e=>props.history.push("/product/info/"+prod.slug)}
+                onClick={e=>props.history.push("/d/product/info/"+prod.slug)}
 
                 style={{ width:200 }}
                 cover={<img src={require("../images/comingSoon/Fischelaltd.png")} />

@@ -72,7 +72,7 @@ const EditProduct = (props)=>{
         updateProduct(values, authToken).then(res=>{
             console.log(res)
             toast.success("Product Updated Successfully")
-            props.history.push("/admin/dashboard")
+            props.history.push("/d/admin/dashboard")
         }).catch(err=>{
             console.log(err)
             toast.error("error Updating image!")

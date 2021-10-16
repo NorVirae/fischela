@@ -67,7 +67,7 @@ const Cart = (props)=>{
       console.log(res.data.successp)})
     console.log("THIS IS THE PRODUCT FROM HANDLE CHECKOUT",products)}
     else{
-      props.history.push({pathname:"/login", state:{msg:"Login to checkout", role:"cart"}})
+      props.history.push({pathname:"/d/login", state:{msg:"Login to checkout", role:"cart"}})
     }
   }
 

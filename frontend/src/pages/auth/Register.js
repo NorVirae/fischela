@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {auth} from '../../firebase';
 import {toast}  from 'react-toastify';
-
+import {Link} from 'react-router-dom'
 
 
 
@@ -31,6 +31,8 @@ const Register = (props)=>{
             <input className={"form-control"} placeholder={"Your Email"} name={email} onChange={e=>setEmail(e.target.value)} type={'email'} autoFocus />
             <br/>
             <button className={"btn btn-raised"} type={"submit"}>Register</button>
+            <Link to="/d/login" className="float-right text-info">have an account? click to login</Link><hr/>
+
         </form>
     return (
     <div className={"container p-5"}>

@@ -36,7 +36,7 @@ const EditSub =  (props) => {
         })
 
         setCategory('')
-        props.history.push("/create/sub")
+        props.history.push("/d/create/sub")
 
          
     }

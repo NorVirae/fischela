@@ -27,7 +27,7 @@ const EditCategory =  (props) => {
         })
 
         setCategory('')
-        props.history.push("/create/category")
+        props.history.push("/d/create/category")
 
          
     }
