@@ -86,9 +86,9 @@ const RegisterComplete = (props)=>{
     }
 
     const formRegister = () => <form onSubmit={handleSubmuit}>
-            <input disabled className={"form-control"} name={email} value={email} onChange={e=>setEmail(e.target.value)} type={'email'}  />
+            <input placeholder ={"Input e-mail again"} className={"form-control"} name={email} value={email} onChange={e=>setEmail(e.target.value)} type={'email'}  />
             <br/>
-            <input placeholder="password" className={"form-control"} onChange={e=>setPassword(e.target.value)} type={'password'} autoFocus />
+            <input placeholder="set new password" className={"form-control"} onChange={e=>setPassword(e.target.value)} type={'password'} autoFocus />
 
             <button className={"btn btn-raised"} type={"submit"}>Register Complete</button>
         </form>
