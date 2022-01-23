@@ -23,8 +23,6 @@ const RegisterComplete = (props)=>{
     
     const handleSubmuit = async (e) =>{
         e.preventDefault()
-
-       
    
     }
 

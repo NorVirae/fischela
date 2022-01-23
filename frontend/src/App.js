@@ -35,8 +35,8 @@ import EditProduct from './pages/admin/editProduct';
 import ProductInfo from './pages/productInfo';
 import Cart from './pages/cart';
 import Orders from './pages/admin/Orders';
-import BuyOrders from './pages/user/BuyOrders';
-import SellOrders from './pages/user/SellOrders';
+import BuyOrders from './pages/admin/BuyOrders';
+import SellOrders from './pages/admin/SellOrders';
 import { UserRouteWithHF } from './components/routes/UserRouteWithHF';
 import { RouteWithHF } from './components/routes/RouteWithHF';
 import SearchPage from './pages/addIns/SearchPage';
@@ -56,6 +56,8 @@ import CreateFarm from './pages/farms/CreateFarm';
 import EditFarm from './pages/farms/EditFarm';
 import EditShop from './pages/shops/EditShop';
 import Logo from './components/nav/Logo';
+import ListHistory from './pages/admin/ListHistory';
+import ProductListView from './pages/admin/ProductListView';
 
 
 
@@ -77,16 +79,15 @@ function App() {
             <Route path={"/d/shop/:id"} element={<><Header/><Shop/></>} exact={true}/>
             <Route path={"/d/deal-preview"} element={<><Header/><DealPreview/></>} exact={true}/>
             <Route path={"/d/service-preview"} element={<><Header/><ServicePreview/></>} exact={true}/>
-
-
-
-
+            <Route path={"/d/list/history"} element={<><Header/><ListHistory/></>} exact={true}/>
 
             <Route path={"/d/register/complete"} element={<><Header/><RegisterComplete/></>} exact={true} />
             <Route path={"/d/test"} element={<><Header/><LikeDislike/></>} exact={true} />
 
             <Route path={"/d/forgotten/password"} element={<ForgottenPassword/>} exact={true} />
             <Route path={"/d/product/info/:id"} element={<><Header/><ProductInfo/></>} exact={true} />
+            <Route path={"/d/product/list"} element={<><Header/><ProductListView/></>} exact={true} />
+
             <Route path={"/d/add/to/cart"} element={<><Header/><Cart/></>} exact={true} />
             <Route path={"/d/search"} element={<><Header/><SearchPage/></>} exact={true} />
 
@@ -118,7 +119,7 @@ function App() {
             <Route path={"/d/create/sub"} element={<><Header/><CreateSubCategory/></>} exact={true} />
             <Route path={"/d/edit/sub/:slug"} element={<><Header/><EditSub/></>} exact={true} />
             <Route path={"/d/create/product"} element={<><Header/><Product/></>} exact={true} />
-            <Route path={"/d/edit/product/:slug"} element={<><Header/><EditProduct/></>} exact={true} />
+            <Route path={"/d/edit/product/:id"} element={<><Header/><EditProduct/></>} exact={true} />
             <Route path={"/d/list/orders"} element={<><Header/><Orders/></>} exact={true} />
 
         </Routes>

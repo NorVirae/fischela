@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import UserNav from  '../../components/nav/UserNav';
-
+import AdminNav from '../../components/nav/AdminNav';
+import Header from '../../components/nav/Header'
 
 const UpdatePassword =  (props) => {
     const [password, setPassword] = useState('')
@@ -24,9 +24,10 @@ const UpdatePassword =  (props) => {
 
     
     return <div className="update-password">
+                <Header/>
                 <div className={"container grid grid-2-20-80"}>
                     <div className={""}>
-                        <UserNav/>
+                        <AdminNav/>
                     </div>
                     <div className="">{passwordDesign()}</div>
                 </div> 

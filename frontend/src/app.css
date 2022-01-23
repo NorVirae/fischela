@@ -1,5 +1,5 @@
 .container {
-    max-width: 1100px;
+    max-width: 82rem;
     margin: auto;
     padding:1rem
   }
@@ -242,6 +242,11 @@
 
   .text-small {
     font-size: .6rem;
+  }
+
+  .text-underline {
+    text-decoration: underline;
+    color: darkblue;
   }
 
   .text-info {
@@ -795,7 +800,7 @@
 /* Side bar */
 
 .sidebar {
-  /* position: absolute; */
+  /* position: relative; */
   width: 20vw;
   height: 100vh;
   background-color: var(--site-theme-light);
@@ -993,4 +998,46 @@
 
 .image-close:hover{
   transform: scale(1.03);
+}
+
+/* Alert class */
+
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:.8rem;
+  text-align: center;
+  border-radius: .4rem;
+  width:auto;
+  margin: .9rem;
+
+}
+
+.alert-success {
+  background-color: rgba(0, 119, 255, 0.548);
+  color: white;
+}
+
+.alert-error {
+  background-color: rgba(255, 0, 98, 0.411);
+  color: white;
+}
+
+.c-btn {
+  cursor: pointer;
+  transition: transform .2s ease-in;
+}
+
+.c-btn:hover{
+  transform: scale(1.01);
+}
+
+
+
+
+.history-card {
+  border-radius: .5rem;
+  width: 50%;
+  background-color: coral;
 }

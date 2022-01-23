@@ -8,6 +8,7 @@ import { deleteProduct, listProducts } from '../../functions/productFunction';
 import NairaFormat from '../../functions/NairaFormater';
 import { hotShops, shopProducts } from '../../data/data';
 import Footer from '../../components/nav/Footer';
+import { useNavigate } from 'react-router-dom';
 const config = {
     cloud_name: 'norvirae',
   api_key: '267177314333933',
@@ -20,7 +21,7 @@ const config = {
 const Shops = (props) => {
     const [products, setProducts]  = useState(hotShops())
     const [empty, setEmpty] = useState(false)
-
+    const navigate = useNavigate()
 
     // const authToken = user.token
     const authToken = "dhbvdjvdjv";
@@ -66,6 +67,11 @@ const Shops = (props) => {
 
                 {/* cols beginning of products listing */}
                 {!empty?<div className={"grid grid-5 gap-1 "}>
+                                
+                                <div onClick={e=>navigate("/d/admin/create/shops")} className="card  flex  flex-column justify-content-center align-items-center p-3">
+                                    <span className='fas fa-plus p-1'></span> Create&nbsp;Shop 
+                                </div>
+
                 {products ? products.map(prod => {
                             console.log(prod.shopOwnerId)
                             if (prod.shopOwnerId == 0){
@@ -79,7 +85,7 @@ const Shops = (props) => {
                                             {prod.name}
                                         </div>
                                         <div className="flex ">
-                                            <div onClick={e=>props.history.push("/d/admin/edit/shops")} className=" btn-edit p-1 mr-1 flex justify-content-center"><i class="fas fa-edit"></i>Edit</div>
+                                            <div onClick={e=>navigate("/d/admin/edit/shops")} className=" btn-edit p-1 mr-1 flex justify-content-center"><i class="fas fa-edit"></i>Edit</div>
                                         </div>
                                     </div>
                                 </div>)}}):null}
@@ -87,7 +93,7 @@ const Shops = (props) => {
                 </div>:<div className='flex flex-column justify-content-center align-items-center empty-shop'>
                     <div className='empty-shop-header'>You don't have a shop!</div>
                      <img className='empty-shop-img' src='https://cdn.pixabay.com/photo/2014/04/02/11/16/shopping-305728_960_720.png' />
-                     <button onClick={e=>props.history.push("/d/admin/create/shops")} className='btn-empty-shop'><i class="fas fa-plus"></i> Create one</button>
+                     <button onClick={e=>navigate("/d/admin/create/shops")} className='btn-empty-shop'><i class="fas fa-plus"></i> Create one</button>
                      </div>}
         {/* END OF PRODUCT LISTING */}
             </section>

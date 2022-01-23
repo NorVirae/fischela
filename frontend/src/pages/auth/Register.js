@@ -7,6 +7,7 @@ import {
     useMutation,
     gql
   } from "@apollo/client";
+import { createUser, createUserQuery } from '../../constants/schemas';
 
 
 
@@ -25,6 +26,8 @@ const query = gql`
 
 
     `
+
+
 const userQuery = gql`
       mutation addUser($name:String!, $phone:String, $password:String, $email:String){
         addUser(name:$name, phone:$phone, password:$password, email:$email){
@@ -37,7 +40,7 @@ const userQuery = gql`
 const users = useQuery(query)
   console.log(users.data, users.error)
 
-    const [addUser, {loading, data, error}] = useMutation(userQuery)
+    const [addUser, {loading, data, error}] = useMutation(createUserQuery)
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [name, setName] = useState('')

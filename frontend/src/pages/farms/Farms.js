@@ -1,13 +1,12 @@
 import React, { useState, useEffect,  } from 'react';
 import AdminNav from '../../components/nav/AdminNav'
-import { deleteProduct, listProducts } from '../../functions/productFunction';
-
-
+import {useParams} from 'react-router-dom';
 
 
 import NairaFormat from '../../functions/NairaFormater';
 import { hotFarms } from '../../data/data';
 import Footer from '../../components/nav/Footer';
+import { useNavigate } from 'react-router-dom';
 const config = {
     cloud_name: 'norvirae',
   api_key: '267177314333933',
@@ -18,34 +17,23 @@ const config = {
 
 
 const Farms = (props) => {
+    const params = useParams()
     const [products, setProducts]  = useState(hotFarms())
     const [empty, setEmpty] = useState(false)
+    const navigate = useNavigate()
 
-
+    console.log(params, "THIS IS THE PARAMS")
 
     // const authToken = user.token
-    const authToken = "dhbvdjvdjv";
-
-    const handleDelete = (slug) =>{
-        deleteProduct(slug, authToken).then(res=>{console.log(res)
-            loadProducts()
-        })
-
-    }
+   
     
 
 
-    const loadProducts = ()=>{
-        listProducts().then(res=>{
-            setProducts(res.data)
-            console.log(res.data)
-        })
-    }
+   
 
 
     useEffect(() => {
 
-        loadProducts()
 
         console.log(products, "thIs IS ProduCts FRoM ADMIN ROUtE")
       return () => {
@@ -68,6 +56,10 @@ const Farms = (props) => {
                 {/* cols beginning of products listing */}
                 {/* cols beginning of products listing */}
                 {!empty?<div className={"grid grid-5 gap-1 "}>
+                                 <div onClick={e=>navigate("/d/admin/create/farms")} className="card  flex  flex-column justify-content-center align-items-center p-3">
+                                    <span className='fas fa-plus p-1'></span> Create&nbsp;Farm 
+                                </div>
+
                 {products ? products.map(prod => {
                             console.log(prod.farmOwnerId)
                             if (prod.farmOwnerId == 0){
@@ -81,7 +73,7 @@ const Farms = (props) => {
                                             {prod.name}
                                         </div>
                                         <div className="flex ">
-                                            <div onClick={e=>props.history.push("/d/admin/edit/farms")} className=" btn-edit p-1 mr-1 flex justify-content-center">Edit</div>
+                                            <div onClick={e=>navigate("/d/admin/edit/farms")} className=" btn-edit p-1 mr-1 flex justify-content-center">Edit</div>
                                             <div className=" btn-delete p-1 flex justify-content-center">Delete</div>
                                         </div>
                                     </div>
@@ -90,7 +82,7 @@ const Farms = (props) => {
                 </div>:<div className='flex flex-column justify-content-center align-items-center empty-farm'>
                     <div className='empty-farm-header'>You don't have a Farm!</div>
                      <img className='empty-farm-img' src='https://cdn.pixabay.com/photo/2012/04/18/20/31/cow-37806_960_720.png' />
-                     <button onClick={e=>props.history.push("/d/admin/create/farms")} className='btn-empty-farm'><i class="fas fa-plus"></i> Create one</button>
+                     <button onClick={e=>navigate("/d/admin/create/farms")} className='btn-empty-farm'><i class="fas fa-plus"></i> Create one</button>
                      </div>}
         {/* END OF PRODUCT LISTING */}
             </section>

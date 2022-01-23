@@ -6,6 +6,8 @@ import Axios from 'axios';
 import { createProduct } from '../../functions/productFunction';
 import Cookie from 'js-cookie'
 import Footer from '../../components/nav/Footer';
+import { useMutation } from '@apollo/client';
+import { updateShopQuery } from '../../constants/schemas';
 
 
 const EditShop = (props)=>{
@@ -32,23 +34,28 @@ const EditShop = (props)=>{
     let imgs = []
     const [loading, setLoading] = useState(false)
     const [subs, setSubs] = useState([])
-    const [values, setValues] = useState({})
+
+    const [updateShopAction, updateShopResult] = useMutation(updateShopQuery)
+    const [values, setValues] = useState({
+        name:"Frank Lab",
+        description:"A place where specimens live",
+        showOwnerId:"jagwulajala",
+        id:"61e7227b327d20fa9e5a6f0c"
+
+    })
+
+
 
 
     
-
-    
-    const innitialState = Cookie.getJSON("productcreate")
+    const innitialState = Cookie.get("productcreate")
 
     const handleSubmit = (e) => {
         //
         e.preventDefault()
         // console.log(values)
-        createProduct(values, authToken).then(res=>{
-            console.log(res)
-        }).catch(err=>{
-            console.log(err)
-        })
+        updateShopAction({variables:values})
+        console.log(updateShopResult.data)
     }
 
     const handleImageUpload = (images) => {
@@ -99,7 +106,7 @@ const EditShop = (props)=>{
                 <label className={''}> Upload a photo of your shop</label>
                     <input  multiple class="form-control-file" type={"file"} placeholder={"images"} onChange={e=>handleImageUpload(e.target.files)} />
             </div>
-
+                {JSON.stringify(updateShopResult.data)}
 
             <div className={"form-group"}>
                 {/* {values.name} */}
@@ -119,7 +126,7 @@ const EditShop = (props)=>{
 
             <div className={"form-group"}>
                 
-                <input class="form-control" type={"text"} placeholder={"Business name"} value={values.price} onChange={e=>setValues({...values, price:e.target.value})} />
+                <input class="form-control" type={"text"} placeholder={"Business name"} value={values.shopOwnerId} onChange={e=>setValues({...values, showOwnerId:e.target.value})} />
             </div>
 
             <div className={"form-group"}>

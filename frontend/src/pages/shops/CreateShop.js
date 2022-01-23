@@ -7,26 +7,14 @@ import { createProduct } from '../../functions/productFunction';
 import Cookie from 'js-cookie'
 import Footer from '../../components/nav/Footer';
 import { hotShops } from '../../data/data';
+import { useMutation } from '@apollo/client';
+import { createShopQuery } from '../../constants/schemas';
 
 
 const CreateShop = (props)=>{
-    const [listOfCategories, setListofCategories] = useState('')
-    const loadCategories = ()=> {
-        listCategories().then((res)=>{
-            
-            setListofCategories(res.data)
-        })
-    }
-
-    useEffect(() => {
-        // console.log(Cookie.getJSON("productcreate"), "THIS IS FROM THE Cache")
-
-       
-      return () => {
-        
-      };
-    }, [])
-    // console.log(Cookie.getJSON("productcreate").productcreate, "THIS IS FROM THE Cache")
+    
+    
+    
 
     const [avail, setAvail] = useState(false)
     const authToken = "user.token"
@@ -34,8 +22,18 @@ const CreateShop = (props)=>{
     const [loading, setLoading] = useState(false)
     const [subs, setSubs] = useState([])
     const [shopss, setShopss] = useState(hotShops())
+    const [createShopAction, createShopResult] = useMutation(createShopQuery)
 
-    const [values, setValues] = useState({id:6, shopOwnerId:1, name:"Rita Clothe Spree", images:[{public_id:"", url:"", src:"https://cdn.pixabay.com/photo/2016/11/22/19/08/hangers-1850082_960_720.jpg"}], description:"Roasted plantain mixed with yam and potato"})
+    const [values, setValues] = useState({id:6, shopOwnerId:1, name:"Rita Clothe Spree", description:"Roasted plantain mixed with yam and potato"})
+
+
+    useEffect(() => {
+
+       
+        return () => {
+          
+        };
+      }, [])
 
     const createShop = () => {
         let newShop = shopss
@@ -45,17 +43,15 @@ const CreateShop = (props)=>{
     
 
     
-    const innitialState = Cookie.getJSON("productcreate")
+    const innitialState = Cookie.get("productcreate")
 
     const handleSubmit = (e) => {
         //
+        console.log("GOT INTO HANDLE SUBMIT")
         e.preventDefault()
-        // console.log(values)
-        createProduct(values, authToken).then(res=>{
-            console.log(res)
-        }).catch(err=>{
-            console.log(err)
-        })
+        createShopAction({variables:values})
+        console.log(createShopResult)
+       
     }
 
     const handleImageUpload = (images) => {
@@ -123,15 +119,15 @@ const CreateShop = (props)=>{
 
                 </textarea>
             </div>
-
+                {JSON.stringify(createShopResult.data)}
             <div className={"form-group"}>
                 
-                <input class="form-control" type={"text"} placeholder={"Business name"} value={values.price} onChange={e=>setValues({...values, price:e.target.value})} />
+                <input class="form-control" type={"text"} placeholder={"Business name"} value={values.shopOwnerId} onChange={e=>setValues({...values, shopOwnerId:e.target.value})} />
             </div>
 
             <div className={"form-group"}>
                 
-                <button class="btn-cart" type={"submit"} onClick={e=>createShop()} ><i className="fas fa-plus pr-1"></i>Create Shop</button>
+                <button class="btn-cart" type={"submit"}  ><i className="fas fa-plus pr-1"></i>Create Shop</button>
             </div>
         </form>
     )

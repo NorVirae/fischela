@@ -1,16 +1,14 @@
 import React, {useState, useEffect}  from 'react';
 import AdminNav from '../../components/nav/AdminNav';
-import { listCategories } from '../../functions/categoryFunctions';
-import { listSubSpec } from '../../functions/subFunctions';
 import axios from 'axios';
-import { createProduct } from '../../functions/productFunction';
 import Cookie from 'js-cookie';
-import { useMutation, useQuery , gql} from '@apollo/client';
+import { useMutation, useQuery, gql} from '@apollo/client';
 import Compress from "react-image-file-resizer";
 
 
-import { method } from 'lodash';
-import Compressor from 'compressorjs';
+import Alert from '../../components/infos/Alert';
+import { productCreateQuery } from '../../constants/schemas';
+import { CreateHistory } from '../../functions/history/HistoryAction';
 
 
 const ImgQuery = gql`
@@ -24,23 +22,13 @@ const ImgQuery = gql`
 
 const Product = (props)=>{
 
-    const [listOfCategories, setListofCategories] = useState('')
-    const [uploadImage, {loading, data, error}] = useMutation(ImgQuery)
+    const [handleProductCreate, productCreateResults] = useMutation(productCreateQuery)
     const [imageLoading, setImageLoading] = useState(false)
-    const loadCategories = () => {
-        listCategories().then((res)=>{
-            setListofCategories(res.data)
-        })
-    }
     
-    const [avail, setAvail] = useState(false)
+    
     const [imagePath, setImagePath] = useState([])
     const [imageResults, setImageResults] = useState([])
 
-    const [compressedFiles, setCompressedFiles] = useState([])
-    const authToken = "user.token"
-    let imgs = []
-    const [subs, setSubs] = useState([])
     const [values, setValues] = useState({
         name:"white shirts on dads",
         description:"the white shirt everybody desires",
@@ -49,16 +37,16 @@ const Product = (props)=>{
         price:5000,
         quantity:40,
         brand:"palms angels",
-        shipping:"yes",
+        shipping:true,
     })
 
     useEffect(() => {
         // console.log(Cookie.get("productcreate"), "THIS IS FROM THE Cache")
         
       return () => {
-        
+        console.log(productCreateResults)
       };
-    }, [imagePath])
+    }, [productCreateResults])
     // console.log(Cookie.get("productcreate").productcreate, "THIS IS FROM THE Cache")
 
 
@@ -103,25 +91,7 @@ const Product = (props)=>{
         
     }
 
-    const multipleImageUpload = () => {
-
-        if (ct = imageFiles.length){
-            setImageLoading(true)
-            const formDat = new FormData()
-            formDat.append("file", imageFile)
-            formDat.append("name", "things")
-
-            console.log("I AM INSIDE COMRESS IMAGE UPLOADER FUNCTION")
-
-            const result = await axios({method:"post", url:"http://localhost:8000/image/upload", data: formDat, headers: {
-                'Content-Type': 'multipart/form-data'
-            }})
-
-            setImageLoading(false)
-
-            return(result.data)
-        }
-    }
+    
 
         
     
@@ -130,10 +100,22 @@ const Product = (props)=>{
     const handleSubmit = (e) => {
         //
         e.preventDefault()
-        // console.log(values)
+        const newValues = {...values,  sellerId:"61e5237a37296212d668ad9c"} 
+
+        setValues(newValues)
+        CreateHistory({type:"product", name:"Product Creation",sourceId:"norbertmbafrank@gmail.com", targetId:"petermbafrank@gmail.com", description:"created a product" })
+        console.log(newValues)
+
+        handleProductCreate({variables:{name:newValues.name, description:newValues.description,
+                                sellerId:newValues.sellerId, images:newValues.images, price:newValues.price,
+                            quantity:newValues.quantity, brand:newValues.brand, shipping:newValues.shipping}})
+        
+
+            console.log(productCreateResults)
         
     }
 
+    
     const deleteImage = async (public_id) => {
           const result2 = await axios({method:"post", url:"http://localhost:8000/image/delete", data: {public_id}
       })
@@ -165,17 +147,24 @@ const Product = (props)=>{
     }
 
     const handleFileChange = (files) => {
-        const listOfImages = [...files]
-        let ct = 0
-        let compressedFiles = []
+        if (files){
+            setImageLoading(true)
+            const listOfImages = [...files]
+            let ct = 0
+            let compressedFiles = []
+            
+            handleMultipleCompressAndUpload(ct, listOfImages, compressedFiles )
+        }
         
-        handleMultipleCompressAndUpload(ct, listOfImages, compressedFiles )
     }
 
 
     const handleMultipleCompressAndUpload = (ct, toBCImageFiles, comImageFiles) => {
         if (ct >= toBCImageFiles.length){
-            multipleImageUpload(ImageFiles)
+            let ctt = 0
+            let resu = []
+            console.log(comImageFiles, "THIS ARE THE COMPRESSED IMAGE FILES")
+            multipleImageUpload(comImageFiles,resu,  ctt )
 
         }else {
             // console.log(comImageFiles, "Compressed image files")
@@ -186,12 +175,42 @@ const Product = (props)=>{
                 "JPEG", // compress format WEBP, JPEG, PNG
                 70, // quality
                 0, // rotation
-                async (uri) => {
+                (uri) => {
                     comImageFiles.push(uri)
                     handleMultipleCompressAndUpload(ct + 1, toBCImageFiles, comImageFiles )
                 },
                 "blob" // blob or base64 default base64
             );
+        }
+    }
+
+    const multipleImageUpload = (imageFiles,SimageResults, ct, ImIDs=[]) => {
+
+        if (ct < imageFiles.length){
+            const formDat = new FormData()
+            formDat.append("file", imageFiles[ct])
+            formDat.append("name", "things")
+
+            console.log("I AM INSIDE COMPRESS IMAGE UPLOADER FUNCTION")
+
+            axios({method:"post", url:"http://localhost:8000/image/upload", data: formDat, headers: {
+                'Content-Type': 'multipart/form-data'
+            }}).then(res => {
+                SimageResults.push(res.data)
+                ImIDs.push(res.data._id)
+                multipleImageUpload(imageFiles,SimageResults, ct + 1, ImIDs)
+            }).catch(err=>{
+                console.log(err)
+                setImageLoading(false)
+            })
+
+            
+        }else{
+            console.log("Am done")
+            setImageLoading(false)
+            setValues({...values, images:ImIDs})
+            setImageResults(SimageResults)
+            console.log(SimageResults, "THIS IS FROM HERE ELSE")
         }
     }
 
@@ -204,6 +223,7 @@ const Product = (props)=>{
 
     const productForm = ()=>(
         <form className='flex flex-column' onSubmit={handleSubmit}>
+            <Alert msg="Wow"  type='success' />
             <div className={"form-group"}>
                 <label className={''}>
                     <input  
@@ -219,15 +239,11 @@ const Product = (props)=>{
                 </label>
             </div>
             
-            
 
             <div className={"form-group"}>
-                <input autoFocus class="form-control" type={"text"} placeholder={"Name"} value={""} />
+                <input  onChange={e=>setValues({...values, name:e.target.value})} autoFocus class="form-control" type={"text"} placeholder={"Name"} value={values.name} />
             </div>
 
-            <div className={"form-group"}>
-                <input autoFocus class="form-control" type={"text"} placeholder={"Name"} value={""} />
-            </div>
 
             <div className={"form-group"}>
                 
@@ -274,14 +290,17 @@ const Product = (props)=>{
     )
     return (
         <div className={"create-product "}>
-            <div className={"container grid grid-2-20-80"}>
+            <div className={"container grid grid-2-20-80 gap-5"}>
                 <div className={""}>
                     <AdminNav/>
                 </div>
+               
+            {JSON.stringify(productCreateResults.data)}
+
                 <div className={""}>
                    <center> <h4>Create your Product!</h4></center>
-                   <div className='flex'>{!imageLoading ? imagePath.length != 0?
-                   imageResults.map(imagP=>(<div className='preview-img-container'>
+                   <div className='flex'>{!imageLoading ? imageResults.length != 0?
+                   imageResults.map(imagP=>(<div key={imagP.public_id} className='preview-img-container'>
                        <span onClick={e=>deleteImage(imagP.public_id)} className='image-close fas fa-times'></span>
                        <img className='image-preview' src={imagP.url} />
                        </div>)):null:

@@ -75,24 +75,74 @@ const AdminDashboard = (props) => {
                 <h4 className={''}>Admin page!</h4>
 
                 {/* cols beginning of products listing */}
-                <div className={"grid grid-5 gap-1 "}>
-                {products ? products.map(prod => {
-                            return (<div onClick={e=>navigate("/d/product/info/"+prod.id)} className="card">
-                                {/* <Image publicId={prod.images?prod.images[0].public_id:""} version="1573726751" cloud_name={config.cloud_name} secure="true" alt="Casual Jacket" height="200" width="200" crop="thumb" /> */}
-                                <img src={prod.images.length!=0?prod.images[0].src:"https://images.pexels.com/photos/8105066/pexels-photo-8105066.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                <section className={"grid grid-2 gap-1 my-2"}>
+                    <div className='card p-2 flex gap-1'>
+                        <i class="fas fa-piggy-bank fa-5x"></i>
+                        <div className='flex flex-column gap-1'>
+                            Wallet Balance
+                            <h2 className=''>{NairaFormat(30000)}</h2>
+                        </div>
+                    </div>
 
-                                <div className="card-body">
-                                    <div className="pb-1 card-title flex justify-content-center align-items-center">
-                                        {prod.name}
-                                    </div>
-                                    <div className="flex ">
-                                        <div className=" btn-edit p-1 mr-1 flex justify-content-center">Edit</div>
-                                        <div className=" btn-delete p-1 flex justify-content-center">Delete</div>
-                                    </div>
-                                </div>
-                            </div>)}):null}
-                        {/* end of card */}            
-                </div>
+                    <div className='card p-2 flex gap-1'>
+                    <i class="fas fa-snowflake fa-5x"></i>
+                        <div className='flex flex-column gap-1'>
+                            Frozen Balance
+                            <h2 className=''>{NairaFormat(1200)}</h2>
+                        </div>
+                    </div>
+                                 
+                </section>
+
+                {/* function section */}
+
+                <section className={"grid grid-5 gap-1 my-2"}>
+                    <div className='card p-2 flex gap-1'>
+                    <i class="fas fa-store fa-3x align-self-center"></i>
+                        <div className='flex flex-column gap-1 justify-content-center align-items-center'>
+                           Create&nbsp;A&nbsp;store
+                            <p className='text-small'>A virtual store with a physical location</p>
+                            <i className='fas fa-plus fa-2x'></i>
+
+                        </div>
+                    </div>
+
+                    <div className='card p-2 flex gap-1'>
+                    <i class="fal fa-sheep fa-3x align-self-center"></i>
+                        <div className='flex flex-column gap-1 justify-content-center align-items-center'>
+                           Create&nbsp;A&nbsp;Farm
+                            <p className='text-small'>A virtual Farm with a physical location</p>
+                            <i className='fas fa-plus fa-2x'></i>
+
+                        </div>
+                    </div>
+                                 
+                </section>
+
+                {/* Checkout your orders */}
+
+                <section className={"grid grid-2 gap-1 my-2"}>
+                    <div className='card p-2 flex gap-1'>
+                    <i class="fas fa-store fa-2x"></i>
+                        <div className='flex flex-column gap-1 justify-content-center align-items-center'>
+                           Sell&nbsp;Orders
+                            <p className='text-small'>A virtual store with a physical location</p>
+                            <i className='fas fa-plus fa-2x'></i>
+
+                        </div>
+                    </div>
+
+                    <div className='card p-2 flex gap-1'>
+                    <i class="fal fa-sheep fa-2x"></i>
+                        <div className='flex flex-column gap-1 justify-content-center align-items-center'>
+                           Buy&nbsp;Orders
+                            <p className='text-small'>A virtual Farm with a physical location</p>
+                            <i className='fas fa-plus fa-2x'></i>
+
+                        </div>
+                    </div>
+                                 
+                </section>
         {/* END OF PRODUCT LISTING */}
             </section>
             

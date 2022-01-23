@@ -24,42 +24,13 @@ const AdminNav = ({className}) => {
                 </Link>
             </li>
             <li className={"sd-item mb-2 p-2"}>
-                <Link to={"/d/create/category"} className={"sd-link"}>
-                <i class="fa fa-list-alt pr-1" aria-hidden="true"></i>Category
-                </Link>
-            </li>
-
-
-            
-
-
-
-                {/* <li className={"nav-item"}>
-                <Link to={"/d/update/password"}  className={"nav-link"}>
-                    Password
-                </Link>
-                </li> */}
-
-            <li className={"sd-item mb-2 p-2"}>
-                <Link to= {"/d/edit/category/:slug"} className={"sd-link"}>
-                    Edit Category
+                <Link to={"/d/list/history"} className={"sd-link"}>
+                <i class="fa fa-list-alt pr-1" aria-hidden="true"></i>History
                 </Link>
             </li>
 
             <li className={"sd-item mb-2 p-2"}>
-                <Link to= {"/d/create/sub"} className={"sd-link"}>
-                    Sub-Category
-                </Link>
-            </li>
-
-            <li className={"sd-item mb-2 p-2"}>
-                <Link to= {"/d/edit/sub/:slug"} className={"sd-link"}>
-                    Edit Sub-Category
-                </Link>
-            </li>
-
-            <li className={"sd-item mb-2 p-2"}>
-                <Link to= {"/d/create/product"} className={"sd-link"}>
+                <Link to= {"/d/product/list"} className={"sd-link"}>
                     Products
                 </Link>
             </li>
@@ -71,11 +42,6 @@ const AdminNav = ({className}) => {
             </li>
 
             <li className={"sd-item p-2 mb-2"}>
-                <Link to= {"/d/edit/product/:slug"} className={"sd-link"}>
-                    Edit Product
-                </Link>
-            </li>
-            <li className={"sd-item p-2 mb-2"}>
                 <Link to= {"/d/admin/shops"} className={"sd-link"}>
                     Shop
                 </Link>
@@ -83,6 +49,24 @@ const AdminNav = ({className}) => {
             <li className={"sd-item p-2 mb-2"}>
                 <Link to= {"/d/admin/farms"} className={"sd-link"}>
                    Farms
+                </Link>
+            </li>
+
+            <li className={"sd-item mb-2 p-2"}>
+                <Link to={"/d/buy/orders"} className={"sd-link"}>
+                    Buy orders
+                </Link>
+            </li>
+
+            <li className={"sd-item mb-2 p-2"}>
+                <Link to= {"/d/sell/orders"} className={"sd-link"}>
+                    Sell Orders
+                </Link>
+            </li>
+
+            <li className={"sd-item mb-2 p-2"}>
+                <Link to= {"/d/update/password"} className={"sd-link"}>
+                    Update Password
                 </Link>
             </li>
         </ul>

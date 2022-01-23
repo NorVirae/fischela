@@ -10,6 +10,8 @@ import NairaFormat from '../../functions/NairaFormater';
 import { orderList } from '../../data/data';
 import Footer from '../../components/nav/Footer';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { createOrderQuery } from '../../constants/schemas';
 const config = {
     cloud_name: 'norvirae',
   api_key: '267177314333933',
@@ -23,8 +25,23 @@ const Orders = (props) => {
     const authToken = "user.token"
     const navigate = useNavigate()
     
+    const [createOrderAction, createOrderResult] = useMutation(createOrderQuery)
+    const [values, setValues] = useState({
+        productName:"Chingtok shoes",
+        productDescription:"A shoe with shark mouth",
+        sellerId:"xskjcdkjcndkcdskjcndsc",
+        buyerId:"dbkjcdjcneoicnoewclewcl",
+        productPrice:4000,
+        amountpaidIn:4000,
+        hasBuyerReceivedDelivery:true,
+        hasSellerDelivered:true,
+        approved:true, 
+        productLocation:"Enugu state",
+        paid:true,
+        refund:false,
+        spaid:true
 
-
+    })
     const [orders, setOrders] = useState(orderList())
     const loadOrders = ()=>{
         listOrders().then(res=>{
@@ -32,6 +49,12 @@ const Orders = (props) => {
             console.log(res.data)
         })
     }
+
+    const handleSubmit = (e) => {
+        createOrderAction({variables:values})
+        console.log("Create Order has been clicked!")
+    }
+
     useEffect(() => {
         loadOrders()
       return () => {
@@ -49,9 +72,10 @@ const Orders = (props) => {
 
             <div className=""> 
                 <h4 className={'alert alert-secondary'}>Orders</h4>
+                {JSON.stringify(createOrderResult.data)}
+
             {/* cols */}
             <div className={"grid grid-5 gap-1"}>
-                
             {orders ? orders.map((ord, index) => {
             
             return <div onClick={e=>navigate("/d/order/preview/"+index)} className="order-sum card flex flex-column p-1">
@@ -73,7 +97,7 @@ const Orders = (props) => {
                 <button onClick={e=>navigate("/d/order/preview/"+index)} className="col-lg-12 btn-cart">View Order</button>
                 <button className="col-lg-12 ord-hide btn-cart">Confirm Delivery</button>
                 <button className="col-lg-12 ord-hide btn-cart">Dispatch</button>
-                <button className="col-lg-12 ord-hide btn-cart">Approved Order</button>
+                <button className="col-lg-12 ord-hide btn-cart">Create Order</button>
 
 
 
@@ -87,6 +111,7 @@ const Orders = (props) => {
 
             </div>
     }  ):null}
+                <button onClick={handleSubmit} className="col-lg-12 btn-cart">Create Order</button>
             
             </div>
 

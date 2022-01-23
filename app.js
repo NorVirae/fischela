@@ -6,6 +6,8 @@ const bodyParser = require('body-parser')
 var fileupload = require("express-fileupload");
 const cloudinary = require('cloudinary').v2
 const ImageList = require("./model/image")
+const History = require("./model/history")
+
 
 cloudinary.config({
     cloud_name: "norvirae",
@@ -84,6 +86,12 @@ app.post("/image/delete", async (req, res)=>{
 
     res.send(resz)
    
+})
+
+app.post("/create/history", async (req, res) => {
+    // console.log("history create", req.body)
+    const newHistory = new History(req.body)
+    console.log( await newHistory.save(), "STORED IN DB")
 })
 
 app.use(cors())

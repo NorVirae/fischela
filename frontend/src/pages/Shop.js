@@ -1,9 +1,11 @@
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NairaFormat from '../functions/NairaFormater';
 import  Footer from '../components/nav/Footer';
 import { hotShops, shopProducts } from '../data/data';
 import { useNavigate, useParams } from 'react-router-dom';
+import { listOneShopQuery } from '../constants/schemas';
+import { useQuery } from '@apollo/client';
 
 
 
@@ -21,7 +23,23 @@ const Shop = (props) => {
     const navigate = useNavigate()
 
     const [products, setProducts]  = useState(shopProducts())
+    const [shop, setShop]  = useState(shopProducts())
+
     const params = useParams()
+
+    const {loading , data, error} = useQuery(listOneShopQuery, {variables:{id:params.id}})
+
+    useEffect(()=>{
+        if (!loading){
+            console.log(error, "THIS IS ERROR")
+            console.log(data)
+            setShop(data.shop)
+        }
+
+        return () => {
+
+        }
+    }, [loading])
 
     return (
         <>
@@ -31,13 +49,13 @@ const Shop = (props) => {
 
 
                 <div className='p-1 farm-banner flex flex-column justify-content-center align-items-center'>
-                    <h3 className='farm-name z-1 my-1'>Chidi Electronic shop</h3>
+                    <h3 className='farm-name z-1 my-1'>{shop.name}</h3>
                     <div className='bg-overlay z-1 p-1 flex flex-column justify-content-center align-items-center'>
                         <img src={"https://images.pexels.com/photos/10390462/pexels-photo-10390462.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"} 
                         className='profile-logo z-1 my-1'/>
                         <h6 className='farm-owner'>Chidiebere ikendu (shop Owner)</h6>
                     </div>
-                    <p className='farm-descp z-1 mt-3'>"We sell all Electronics, Printers, photocopy Machines, DVDS and lots more We offer the best check us out"
+                    <p className='farm-descp z-1 mt-3'>{shop.description}
                     </p>
                     
                     {/* <h2 className='z-1 arrow-more'><span className='r-90'>{"> >"}</span></h2> */}

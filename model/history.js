@@ -7,6 +7,7 @@ const HistorySchema = new Schema({
     description:{type:String},
     sourceId:{type:String},
     targetId:{type:String},
+    type:{type:String}, 
     date:{type:Date, default:Date.now()}
 })
 

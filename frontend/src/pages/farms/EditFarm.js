@@ -3,19 +3,14 @@ import AdminNav from '../../components/nav/AdminNav';
 import { listCategories } from '../../functions/categoryFunctions';
 import { listSubSpec } from '../../functions/subFunctions';
 import Axios from 'axios';
-import { createProduct } from '../../functions/productFunction';
 import Cookie from 'js-cookie'
 import Footer from '../../components/nav/Footer';
+import { useMutation } from '@apollo/client';
+import { updateFarmQuery } from '../../constants/schemas';
 
 
 const EditFarm = (props)=>{
-    const [listOfCategories, setListofCategories] = useState('')
-    const loadCategories = ()=> {
-        listCategories().then((res)=>{
-            
-            setListofCategories(res.data)
-        })
-    }
+    
 
     useEffect(() => {
         // console.log(Cookie.getJSON("productcreate"), "THIS IS FROM THE Cache")
@@ -32,23 +27,25 @@ const EditFarm = (props)=>{
     let imgs = []
     const [loading, setLoading] = useState(false)
     const [subs, setSubs] = useState([])
-    const [values, setValues] = useState({})
+    const [values, setValues] = useState({
+        id:"61ebaed1efa4a0b3afd011cf",
+        name:"Honeny Farm counter",
+        description:"the land of honey",
+        farmOwnerId:"cdjcndjcndjcndjdcj",
+    })
 
+    const [updateFarmAction, updateFarmResult] = useMutation(updateFarmQuery)
 
     
-
-    
-    const innitialState = Cookie.getJSON("productcreate")
+    const innitialState = Cookie.get("productcreate")
 
     const handleSubmit = (e) => {
         //
         e.preventDefault()
-        // console.log(values)
-        createProduct(values, authToken).then(res=>{
-            console.log(res)
-        }).catch(err=>{
-            console.log(err)
-        })
+        updateFarmAction({variables:values})
+
+        console.log(updateFarmResult.data, "GOT IN")
+       
     }
 
     const handleImageUpload = (images) => {
@@ -100,7 +97,7 @@ const EditFarm = (props)=>{
                     <input  multiple class="form-control-file" type={"file"} placeholder={"images"} onChange={e=>handleImageUpload(e.target.files)} />
             </div>
 
-
+            {JSON.stringify(updateFarmResult.data)}
             <div className={"form-group"}>
                 {/* {values.name} */}
                 <input autoFocus class="form-control" type={"text"} placeholder={"Farm name"} value={values.name} onChange={e=>{setValues({...values, name:e.target.value});Cookie.set("productcreate",{productcreate:values})}} />
@@ -119,7 +116,7 @@ const EditFarm = (props)=>{
 
             <div className={"form-group"}>
                 
-                <input class="form-control" type={"text"} placeholder={"Business name"} value={values.price} onChange={e=>setValues({...values, price:e.target.value})} />
+                <input class="form-control" type={"text"} placeholder={"Farm owner id"} value={values.farmOwnerId} onChange={e=>setValues({...values, farmOwnerId:e.target.value})} />
             </div>
 
             <div className={"form-group"}>
@@ -130,12 +127,13 @@ const EditFarm = (props)=>{
     )
     return (
         <div className={"create-product "}>
+            {JSON.stringify(updateFarmResult.data)}
             <div className={"container grid grid-2-20-80"}>
                 <div className={""}>
                     <AdminNav/>
                 </div>
                 <div className={""}>
-                   <center> <h4>Edit your Shop!</h4></center>
+                   <center> <h4>Edit your Farm!</h4></center>
                     {productForm()}
                 </div>
             </div>

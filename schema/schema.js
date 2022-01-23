@@ -7,7 +7,7 @@ const Farm = require('../model/farm')
 const Order = require('../model/order')
 const Product = require('../model/product')
 const History = require('../model/history')
-
+const ImageLists = require('../model/image')
 
 // User Schema
 
@@ -133,14 +133,20 @@ const ProductType = new GraphQLObjectType({
         return {
             id: {type:GraphQLID},
             name: {type: GraphQLString},
-            images:{type:new GraphQLList(GraphQLString)},
+            images:{type:new GraphQLList(GraphQLID)},
             description: {type: GraphQLString},
             sellerId: {type:GraphQLID},
-            Price: {type:GraphQLInt},
+            price: {type:GraphQLInt},
             quantity: {type:GraphQLInt},
             brand: {type:GraphQLString},
             shipping: {type:GraphQLBoolean},
             deletedCount: {type:GraphQLInt},
+            imageList:{
+                type:new GraphQLList(ImageType),
+                resolve(parent, args){
+                    return ImagesLists.find({_id:{$in:parent.images}})
+                }
+            },
 
             seller:{
                 type:UserType,
@@ -159,6 +165,7 @@ const HistoryType = new GraphQLObjectType({
         return {
             id: {type:GraphQLID},
             name: {type: GraphQLString},
+            type:{type:GraphQLString},
             description: {type: GraphQLString},
             sourceId: {type:GraphQLID},
             targetId: {type:GraphQLID},
@@ -216,7 +223,8 @@ const ImageType = new GraphQLObjectType({
     name:"Images",
     fields:{
         url:{type:GraphQLString},
-        images:{type:GraphQLString},
+        public_id:{type:GraphQLString},
+        id:{type:GraphQLID}
 
 
     }
@@ -419,7 +427,7 @@ const Mutation = new GraphQLObjectType({
             args:{id:{type:GraphQLID},
                  name:{type:GraphQLString},
                  description:{type:GraphQLString},
-                 shopOwnerId:{type:GraphQLString},
+                 shopOwnerId:{type:GraphQLID},
                 },
            async resolve(parent, args){
                 console.log("I Was here")
@@ -443,7 +451,7 @@ const Mutation = new GraphQLObjectType({
             args:{id:{type:GraphQLID},
             name:{type:GraphQLString},
             description:{type:GraphQLString},
-            shopOwnerId:{type:GraphQLString},},
+            shopOwnerId:{type:GraphQLID},},
             resolve(parent, args){
                 const updatedShop = Shop.findOneAndUpdate({_id:args.id},
                     args,{new:true})
@@ -458,7 +466,7 @@ const Mutation = new GraphQLObjectType({
             args:{id:{type:GraphQLID},
                  name:{type:GraphQLString},
                  description:{type:GraphQLString},
-                 farmOwnerId:{type:GraphQLString},
+                 farmOwnerId:{type:GraphQLID},
                 },
            async resolve(parent, args){
                 console.log("I Was here")
@@ -484,10 +492,11 @@ const Mutation = new GraphQLObjectType({
             args:{id:{type:GraphQLID},
             name:{type:GraphQLString},
             description:{type:GraphQLString},
-            farmOwnerId:{type:GraphQLString},},
+            farmOwnerId:{type:GraphQLID},},
             resolve(parent, args){
                 const updatedFarm = Farm.findOneAndUpdate({_id:args.id},
                     args,{new:true})
+                    console.log("I SHOW")
                 return updatedFarm
             }
         },
@@ -548,10 +557,12 @@ const Mutation = new GraphQLObjectType({
                 spaid:{type:GraphQLBoolean},
                 paid:{type:GraphQLBoolean},},
 
-            resolve(parent, args){
-                const updatedOrder = Order.findOneAndUpdate({_id:args.id},
+           async resolve(parent, args){
+                const updatedOrder = await Order.findOneAndUpdate({_id:args.id},
                     args,
                     {new:true})
+
+                    console.log(updatedOrder, "UPDATE WAS SUCCESFUL!")
                 return updatedOrder
             }
         },
@@ -564,14 +575,15 @@ const Mutation = new GraphQLObjectType({
             name: {type: GraphQLString},
             description: {type: GraphQLString},
             sellerId: {type:GraphQLID},
-            images:{type:new GraphQLList(GraphQLString)},
-            Price: {type:GraphQLInt},
+            images:{type:new GraphQLList(GraphQLID)},
+            price: {type:GraphQLInt},
             quantity: {type:GraphQLInt},
             brand: {type:GraphQLString},
             shipping: {type:GraphQLBoolean},
             },
 
            async resolve(parent, args){
+               
                 console.log("I Was here")
                 // let user = 
                 // let newUser = user.save()
@@ -590,15 +602,14 @@ const Mutation = new GraphQLObjectType({
             }
         },
 
-        updatePproduct: {
+        updateProduct: {
             type:ProductType,
             args:{id:{type:GraphQLID},
-            images:{type:new GraphQLList(GraphQLString)},
-            id: {type:GraphQLID},
+            images:{type:new GraphQLList(GraphQLID)},
             name: {type: GraphQLString},
             description: {type: GraphQLString},
             sellerId: {type:GraphQLID},
-            Price: {type:GraphQLInt},
+            price: {type:GraphQLInt},
             quantity: {type:GraphQLInt},
             brand: {type:GraphQLString},
             shipping: {type:GraphQLBoolean},
@@ -618,6 +629,7 @@ const Mutation = new GraphQLObjectType({
             type:HistoryType,
             args:{id:{type:GraphQLID},
             name: {type: GraphQLString},
+            type:{type:GraphQLString},
             description: {type: GraphQLString},
             sourceId: {type:GraphQLID},
             targetId: {type:GraphQLID},
@@ -660,17 +672,7 @@ const Mutation = new GraphQLObjectType({
         },
         // end of history Mutation   
         
-        // Image upload
-
-        uploadImage:{
-            type:ImageType,
-            args:{images:GraphQLObjectType},
-
-            resolve(parent, args){
-                console.log(args.images)
-                return {url:"what the heck"}
-            }
-        }
+       
 
     }
 })

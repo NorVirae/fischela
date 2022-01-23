@@ -6,6 +6,7 @@ import { listOrders } from '../../functions/orderFunctions';
 import NairaFormat from '../../functions/NairaFormater';
 import UserNav from '../../components/nav/UserNav';
 import { orderList } from '../../data/data';
+import AdminNav from '../../components/nav/AdminNav';
 const config = {
     cloud_name: 'norvirae',
   api_key: '267177314333933',
@@ -40,7 +41,7 @@ const BuyOrders = (props) => {
                 <div className={"container grid gap-1 grid-2-20-80 justify-content-center"}>
 
                     <div className={""}>
-                            <UserNav/>
+                            <AdminNav/>
                     </div>
 
 

@@ -1,24 +1,36 @@
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NairaFormat from '../functions/NairaFormater';
 import  Footer from '../components/nav/Footer';
 import { deals } from '../data/data';
 import {useNavigate, useParams} from 'react-router-dom';
 import FarmOwner from "../images/rice-farm-owner.jpg"
 import FarmImg  from '../images/rice-farm.jpg'
+import { useQuery } from '@apollo/client';
+import { listOneFarmQuery } from '../constants/schemas';
 
 
 
 const Farm = (props) => {
-    const config = {
-        cloud_name: 'norvirae',
-      api_key: '267177314333933',
-      api_secret: 'qzPi3K8LNu9C66AGEPvuSW7WtP8'
-    }
-
-    const [products, setProducts]  = useState(deals())
-    const navigate = useNavigate()
     const params = useParams()
+    const [products, setProducts]  = useState(deals())
+    const {loading, data, error} = useQuery(listOneFarmQuery, {variables:{id:params.id}})
+    const [farm, setFarm] = useState()
+
+    const navigate = useNavigate()
+    console.log(params, "THIS IS THE PARAMS")
+
+    useEffect(()=>{
+
+        if(!loading){
+            console.log("data just arrived")
+            console.log(data)
+            setFarm(data.farm)
+        }
+        return ()=>{}
+    }, [loading])
+
+   
 
     return (
         <>
@@ -28,14 +40,13 @@ const Farm = (props) => {
 
 
                 <div className='p-1 farm-banner flex flex-column justify-content-center align-items-center'>
-                    <h3 className='farm-name z-1 my-1'>Holmes Rice Farm!</h3>
+                    <h3 className='farm-name z-1 my-1'>{farm?farm.name:"-------"}</h3>
                     <div className='bg-overlay z-1 p-1 flex flex-column justify-content-center align-items-center'>
                         <img src={FarmOwner} 
                         className='profile-logo z-1 my-1'/>
                         <h6 className='farm-owner'>Chidinma Ezeonu (Farm Owner)</h6>
                     </div>
-                    <p className='farm-descp z-1 mt-3'>"We sell all types of Rice Straight rice short rice and long rice all at 
-                        affordable price and straight from the farm".
+                    <p className='farm-descp z-1 mt-3'>{farm?farm.description:"-------"}
                     </p>
                     
                     {/* <h2 className='z-1 arrow-more'><span className='r-90'>{"> >"}</span></h2> */}
